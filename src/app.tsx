@@ -1,10 +1,11 @@
 import React from 'react';
 import './app.css';
+import LoginScreen from './login-screen';
 
 const App = () => {
   return (
     <div className='app'>
-      <header className='app-header'>Hello World</header>
+      <LoginScreen />
     </div>
   );
 }

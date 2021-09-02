@@ -1,7 +1,7 @@
 import React from 'react';
 import './app.css';
 
-function App() {
+const App = () => {
   return (
     <div className='app'>
       <header className='app-header'>Hello World</header>

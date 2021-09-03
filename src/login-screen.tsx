@@ -1,44 +1,76 @@
 import React, { useState } from 'react';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
-} from "@apollo/client";
+import { useMutation, gql } from '@apollo/client';
 
-const apolloClient = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
-  cache: new InMemoryCache()
-});
+const LOGIN = gql`
+  mutation ($email: String!, $password: String!) {
+    login(data: { email: $email, password: $password }) {
+      token
+      user {
+        id
+        name
+        phone
+        email
+        role
+      }
+    }
+  }
+`;
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
   const [password, setPassword] = useState('');
+  const [validPassword, setValidPassword] = useState(false);
+
+  const [login, { data, loading, error }] = useMutation(LOGIN, { 
+    errorPolicy: 'all',
+  });
 
   const validateEmail = () => {
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
-      alert('Insira um e-mail válido.');
+      alert('O e-mail está com formato inválido. Por favor, corrija.');
+      setValidEmail(false);
+    } else {
+      setValidEmail(true);
     }
-  }
+  };
 
   const validatePassword = () => {
+    setValidPassword(true);
     if (password.length < 7) {
       alert('Senha deve ter no mínimo 7 caracteres.');
+      setValidPassword(false);
     }
     if (!/[a-z]|[A-Z]/.test(password)) {
       alert('Senha deve conter pelo menos 1 letra.');
+      setValidPassword(false);
     }
     if (!/[0-9]/.test(password)) {
       alert('Senha deve conter pelo menos 1 número.');
+      setValidPassword(false);
     }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     validateEmail();
     validatePassword();
-    event.preventDefault();
+    
+    if (validEmail && validPassword) {
+      login({
+        variables: {
+          email: email,
+          password: password,
+        },
+      });
+      if (error) {
+        alert(error.message);
+      } else {
+        alert('Login efetuado com sucesso.')
+        console.log(data);
+      }
+    }
   };
 
   return (

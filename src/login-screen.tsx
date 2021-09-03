@@ -4,13 +4,14 @@ const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
-  const validateForm = () => {
+  const validateEmail = () => {
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
       alert('Insira um e-mail válido.');
     }
+  }
 
+  const validatePassword = () => {
     if (password.length < 7) {
       alert('Senha deve ter no mínimo 7 caracteres.');
     }
@@ -23,7 +24,8 @@ const LoginScreen: React.FC = () => {
   };
 
   const handleSubmit = (event: React.FormEvent) => {
-    validateForm();
+    validateEmail();
+    validatePassword();
     event.preventDefault();
   };
 

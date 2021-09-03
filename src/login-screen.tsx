@@ -9,21 +9,22 @@ const LoginScreen: React.FC = () => {
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
     setPassword(input);
-    const lastDigit = input.substr(input.length - 1);
-    //alert(lastDigit);
-    if (/[a-z]/.test(lastDigit) || /[A-Z]/.test(lastDigit)) {
+    if (/[a-z]|[A-Z]/.test(input)) {
       setHasChar(true);
+    } else {
+      setHasChar(false);
     }
-    if (/[0-9]/.test(lastDigit)) {
+    if (/[0-9]/.test(input)) {
       setHasNumber(true);
+    } else {
+      setHasNumber(false);
     }
-  }
+  };
 
   const validateForm = () => {
-
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
-      alert('Insira um e-mail válido.')
+      alert('Insira um e-mail válido.');
     }
 
     if (password.length < 7) {
@@ -36,12 +37,11 @@ const LoginScreen: React.FC = () => {
       alert('Senha deve conter pelo menos 1 número.');
     }
   };
- 
+
   const handleSubmit = (event: React.FormEvent) => {
     validateForm();
     event.preventDefault();
   };
-
 
   return (
     <div>

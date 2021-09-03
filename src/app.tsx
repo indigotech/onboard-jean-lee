@@ -2,7 +2,7 @@ import React from 'react';
 import './app.css';
 import LoginScreen from './login-screen';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div className='app'>
       <LoginScreen />

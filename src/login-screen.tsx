@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, useQuery, gql } from '@apollo/client';
 
 const LOGIN = gql`
   mutation ($email: String!, $password: String!) {
     login(data: { email: $email, password: $password }) {
+      user {id}
       token
     }
   }
 `;
 
+
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [login, { data, loading, error }] = useMutation(LOGIN, { 
+  const [login] = useMutation(LOGIN, { 
     errorPolicy: 'none',
     onError(error) {
       alert(error.message);
     },
     onCompleted(data) { 
+      const token = data.login.token.split(' ')[1];
+      document.cookie = `auth-token=${token}`;
+      console.log(data);
       alert('Login efetuado com sucesso.');
     },
   });

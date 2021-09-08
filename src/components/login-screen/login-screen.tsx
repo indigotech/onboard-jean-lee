@@ -7,6 +7,8 @@ const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const history = useHistory();
+
   const { loading, error, authenticate } = useContext(AuthContext);
 
 

@@ -5,58 +5,55 @@ const LOGIN = gql`
   mutation ($email: String!, $password: String!) {
     login(data: { email: $email, password: $password }) {
       token
-      user {
-        id
-        name
-        phone
-        email
-        role
-      }
     }
   }
 `;
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
-  const [validEmail, setValidEmail] = useState(false);
   const [password, setPassword] = useState('');
-  const [validPassword, setValidPassword] = useState(false);
 
   const [login, { data, loading, error }] = useMutation(LOGIN, { 
-    errorPolicy: 'all',
+    errorPolicy: 'none',
+    onError(error) {
+      alert(error.message);
+    },
+    onCompleted(data) { 
+      alert('Login efetuado com sucesso.');
+    },
   });
 
   const validateEmail = () => {
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
       alert('O e-mail está com formato inválido. Por favor, corrija.');
-      setValidEmail(false);
+      return false;
     } else {
-      setValidEmail(true);
+      return true;
     }
   };
 
   const validatePassword = () => {
-    setValidPassword(true);
+    let validPassword = true;
     if (password.length < 7) {
       alert('Senha deve ter no mínimo 7 caracteres.');
-      setValidPassword(false);
+      validPassword = false;
     }
     if (!/[a-z]|[A-Z]/.test(password)) {
       alert('Senha deve conter pelo menos 1 letra.');
-      setValidPassword(false);
+      validPassword = false;
     }
     if (!/[0-9]/.test(password)) {
       alert('Senha deve conter pelo menos 1 número.');
-      setValidPassword(false);
+      validPassword = false;
     }
+    return validPassword;
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    validateEmail();
-    validatePassword();
-    
+    const validEmail = validateEmail();
+    const validPassword = validatePassword();
     if (validEmail && validPassword) {
       login({
         variables: {
@@ -64,12 +61,6 @@ const LoginScreen: React.FC = () => {
           password: password,
         },
       });
-      if (error) {
-        alert(error.message);
-      } else {
-        alert('Login efetuado com sucesso.')
-        console.log(data);
-      }
     }
   };
 

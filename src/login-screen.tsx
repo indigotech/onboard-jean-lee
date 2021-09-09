@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 
 const LOGIN = gql`
   mutation ($email: String!, $password: String!) {
@@ -16,14 +16,13 @@ const LoginScreen: React.FC = () => {
   const [password, setPassword] = useState('');
 
   const [login] = useMutation(LOGIN, { 
-    errorPolicy: 'none',
     onError(error) {
       alert(error.message);
     },
     onCompleted(data) { 
       const token = data.login.token.split(' ')[1];
-      document.cookie = `auth-token=${token}`;
-      console.log(data);
+      localStorage.setItem('auth-token', token);
+      console.log(localStorage.getItem('auth-token'));
       alert('Login efetuado com sucesso.');
     },
   });

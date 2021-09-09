@@ -16,9 +16,6 @@ const LoginScreen: React.FC = () => {
     const validPassword = validatePassword(password);
     if (validEmail && validPassword) {
       await authenticate(email, password);
-      if (error) {
-        alert(error.message);
-      }
     }
   };
 

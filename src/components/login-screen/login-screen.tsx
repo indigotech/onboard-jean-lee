@@ -1,32 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../context/auth-context';
+import { validateEmail, validatePassword } from '../../utils';
+
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const validateEmail = () => {
-    const emailRegex = /^\S+@\S+\.\S+$/;
-    if (!emailRegex.test(email)) {
-      alert('Insira um e-mail válido.');
-    }
-  }
+  const { loading, error, authenticate } = useContext(AuthContext);
 
-  const validatePassword = () => {
-    if (password.length < 7) {
-      alert('Senha deve ter no mínimo 7 caracteres.');
-    }
-    if (!/[a-z]|[A-Z]/.test(password)) {
-      alert('Senha deve conter pelo menos 1 letra.');
-    }
-    if (!/[0-9]/.test(password)) {
-      alert('Senha deve conter pelo menos 1 número.');
-    }
-  };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    validateEmail();
-    validatePassword();
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const validEmail = validateEmail(email);
+    const validPassword = validatePassword(password);
+    if (validEmail && validPassword) {
+      await authenticate(email, password);
+    }
   };
 
   return (

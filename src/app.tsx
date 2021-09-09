@@ -1,6 +1,6 @@
 import React from 'react';
 import './app.css';
-import LoginScreen from './login-screen';
+import LoginScreen from './components/login-screen/login-screen';
 
 const App: React.FC = () => {
   return (

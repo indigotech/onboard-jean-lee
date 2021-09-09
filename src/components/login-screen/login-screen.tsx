@@ -26,7 +26,7 @@ const LoginScreen: React.FC = () => {
 
   return (
     <div>
-      <Route path='/login'>{getAuthToken() && <Redirect to='/home' />}</Route>
+      <Route path='/login'>{getAuthToken() && <Redirect to='/user-list' />}</Route>
       <h1>Bem vindo(a) à Taqtile!</h1>
       <form onSubmit={handleSubmit}>
         <label>

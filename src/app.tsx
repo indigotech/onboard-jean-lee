@@ -5,8 +5,6 @@ import LoginScreen from './components/login-screen/login-screen';
 import { getAuthToken } from './utils';
 
 const App: React.FC = () => {
-    
-  console.log(getAuthToken);
   return (
     <div className='app'>
       <Switch>
@@ -15,7 +13,7 @@ const App: React.FC = () => {
         <Route
           path='/'
           render={() => {
-            return getAuthToken ? <Redirect to='/home' /> : <Redirect to='/login' />;
+            return getAuthToken() ? <Redirect to='/home' /> : <Redirect to='/login' />;
           }}
         />
       </Switch>

@@ -2,11 +2,9 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import './app.css';
 import LoginScreen from './components/login-screen/login-screen';
+import { getAuthToken } from './utils';
 
 const App: React.FC = () => {
-  const getAuthToken = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('auth-token'));
     
   console.log(getAuthToken);
   return (

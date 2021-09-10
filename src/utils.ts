@@ -26,3 +26,7 @@ export const validatePassword = (password: string): boolean => {
   }
   return validPassword;
 };
+
+export const getAuthToken = (): string | null =>{ 
+    return localStorage.getItem('auth-token')
+};

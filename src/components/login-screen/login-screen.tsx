@@ -1,26 +1,28 @@
 import React, { useContext, useState } from 'react';
+import { Redirect, Route, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
-import { validateEmail, validatePassword } from '../../utils';
-
+import { getAuthToken, validateEmail, validatePassword } from '../../utils';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { loading, error, authenticate } = useContext(AuthContext);
+  const history = useHistory();
 
+  const { loading, error, authenticate } = useContext(AuthContext);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const validEmail = validateEmail(email);
     const validPassword = validatePassword(password);
     if (validEmail && validPassword) {
-      await authenticate(email, password);
+      await authenticate(email, password).then(() => history.push('/home'));
     }
   };
 
   return (
     <div>
+      <Route path='/login'>{getAuthToken() && <Redirect to='/home' />}</Route>
       <h1>Bem vindo(a) à Taqtile!</h1>
       <form onSubmit={handleSubmit}>
         <label>

@@ -1,5 +1,5 @@
 import { useMutation, gql, ApolloError } from '@apollo/client';
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 
 const LOGIN = gql`
   mutation ($email: String!, $password: String!) {
@@ -33,7 +33,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       .then((response) => {
         const token = response.data.login.token.split(' ')[1];
         localStorage.setItem('auth-token', token);
-        console.log(localStorage.getItem('auth-token'));
       })
       .catch(err => console.log(err))
   };

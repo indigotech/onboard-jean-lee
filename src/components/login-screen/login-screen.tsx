@@ -13,12 +13,12 @@ const LoginScreen: React.FC = () => {
 
   const { loading, authenticate } = useContext(AuthContext);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const validEmail = validateEmail(email);
     const validPassword = validatePassword(password);
     if (validEmail && validPassword) {
-      await authenticate(email, password)
+      authenticate(email, password)
         .then(() => history.push('/home'))
         .catch((err) => alert(err.message));
     }

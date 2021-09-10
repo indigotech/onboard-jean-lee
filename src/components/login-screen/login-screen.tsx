@@ -13,6 +13,7 @@ const LoginScreen: React.FC = () => {
 
   const { loading, authenticate } = useContext(AuthContext);
 
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const validEmail = validateEmail(email);

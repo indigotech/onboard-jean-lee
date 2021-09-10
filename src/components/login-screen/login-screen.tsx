@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 import { getAuthToken, validateEmail, validatePassword } from '../../utils';
+import loadingSpinner from '../../loading.gif';
+import '../../app.css';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -9,14 +11,17 @@ const LoginScreen: React.FC = () => {
 
   const history = useHistory();
 
-  const { loading, error, authenticate } = useContext(AuthContext);
+  const { loading, authenticate } = useContext(AuthContext);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const validEmail = validateEmail(email);
     const validPassword = validatePassword(password);
     if (validEmail && validPassword) {
-      await authenticate(email, password).then(() => history.push('/home'));
+      authenticate(email, password)
+        .then(() => history.push('/home'))
+        .catch((err) => alert(err.message));
     }
   };
 
@@ -35,7 +40,10 @@ const LoginScreen: React.FC = () => {
           <input type='password' name='password' onChange={(event) => setPassword(event.target.value)} />
         </label>
         <br />
-        <input type='submit' name='submit' />
+        <button type='submit' name='submit' disabled={loading}>
+          {loading && <img src={loadingSpinner} height='20px' />}
+          Entrar
+        </button>
       </form>
     </div>
   );

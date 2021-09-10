@@ -3,7 +3,7 @@ import { Redirect, Route, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 import { getAuthToken, validateEmail, validatePassword } from '../../utils';
 import loadingSpinner from '../../loading.gif';
-import '../../app.css'
+import '../../app.css';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -24,11 +24,7 @@ const LoginScreen: React.FC = () => {
     }
   };
 
-  return loading ? (
-    <div className='app'>
-    <img src={loadingSpinner} height='20px' />
-    </div>
-  ) : (
+  return (
     <div>
       <Route path='/login'>{getAuthToken() && <Redirect to='/home' />}</Route>
       <h1>Bem vindo(a) à Taqtile!</h1>
@@ -44,6 +40,7 @@ const LoginScreen: React.FC = () => {
         </label>
         <br />
         <button type='submit' name='submit' disabled={loading}>
+          {loading && <img src={loadingSpinner} height='20px' />}
           Entrar
         </button>
       </form>

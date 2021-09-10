@@ -19,7 +19,7 @@ const LoginScreen: React.FC = () => {
     const validPassword = validatePassword(password);
     if (validEmail && validPassword) {
       authenticate(email, password)
-        .then(() => history.push('/home'))
+        .then(() => history.push('/user-list'))
         .catch((err) => alert(err.message));
     }
   };

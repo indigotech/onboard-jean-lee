@@ -1,5 +1,25 @@
 import React from 'react';
 import { ListCard, Wrapper } from './styles';
+import { useQuery, gql } from '@apollo/client';
+import { getAuthToken } from '../../utils';
+import { Redirect, Route } from 'react-router-dom';
+
+
+const USER_LIST = gql`
+  query {
+    users(pageInfo: { limit: 250 }) {
+      count
+      nodes {
+        id
+        name
+        phone
+        birthDate
+        email
+        role
+      }
+    }
+  }
+`;
 
 const mockList = {
   users: {
@@ -100,9 +120,15 @@ const List: React.FC = () => {
   return <dl>{listItems}</dl>;
 };
 
+
 const UserList: React.FC = () => {
-  return (
+  const { loading, error, data } = useQuery(USER_LIST);
+
+
+  return loading ? <h1>carregando</h1> : (
     <Wrapper>
+      {console.log(error ? error.message : data)}
+      <Route path='/user-list'>{!getAuthToken() && <Redirect to='/login' />}</Route>
       <h1>Lista de usuários</h1>
       <List />
     </Wrapper>

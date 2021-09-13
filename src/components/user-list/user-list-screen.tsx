@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper } from './styles';
+import { UserListWrapper } from './styles';
 import { useQuery, gql } from '@apollo/client';
 import { getAuthToken } from '../../utils';
 import { Redirect, Route } from 'react-router-dom';
@@ -27,11 +27,11 @@ const UserListScreen: React.FC = () => {
   }
 
   return (
-    <Wrapper>
+    <UserListWrapper>
       <Route path='/user-list'>{!getAuthToken() && <Redirect to='/login' />}</Route>
       <h1>Lista de usuários</h1>
       {loading ? <img src={loadingSpinner} height='20px' /> : !error && <UserList list={data.users.nodes} />}
-    </Wrapper>
+    </UserListWrapper>
   );
 };
 

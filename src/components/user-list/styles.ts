@@ -11,7 +11,7 @@ export const ListCard = styled.li`
   list-style-type: none;
 `;
 
-export const Wrapper = styled.div`
+export const UserListWrapper = styled.div`
   background-color: white;
   justify-content: space-between;
 `

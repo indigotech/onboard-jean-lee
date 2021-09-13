@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
-import { AuthContext } from 'context/auth-context';
+import { useAuthenticator } from './authenticator';
 import { getAuthToken, validateEmail, validatePassword } from 'utils';
 import loadingSpinner from 'loading.gif';
 import 'app.css';
@@ -11,7 +11,7 @@ const LoginScreen: React.FC = () => {
 
   const history = useHistory();
 
-  const { loading, authenticate } = useContext(AuthContext);
+  const { loading, authenticate } = useAuthenticator();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

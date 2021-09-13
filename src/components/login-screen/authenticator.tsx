@@ -1,5 +1,4 @@
 import { useMutation, gql } from '@apollo/client';
-import { createContext } from 'react';
 
 const LOGIN = gql`
   mutation ($email: String!, $password: String!) {
@@ -12,18 +11,16 @@ const LOGIN = gql`
   }
 `;
 
-type AuthContextTypes = {
+type AuthenticatorTypes = {
   loading: boolean;
   authenticate: (email: string, password: string) => Promise<void>;
 };
 
-export const AuthContext = createContext({} as AuthContextTypes);
-
-export const AuthProvider: React.FC = ({ children }) => {
+export const useAuthenticator = (): AuthenticatorTypes => {
   const [login, { loading }] = useMutation(LOGIN);
 
   const authenticate = async (email: string, password: string) => {
-    await login({
+    login({
       variables: {
         email: email,
         password: password,
@@ -35,5 +32,5 @@ export const AuthProvider: React.FC = ({ children }) => {
       })
   };
 
-  return <AuthContext.Provider value={{ loading, authenticate }}>{children}</AuthContext.Provider>;
+  return { loading, authenticate };
 };

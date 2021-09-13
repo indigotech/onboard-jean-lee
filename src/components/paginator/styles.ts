@@ -17,18 +17,18 @@ export const TextWrapper = styled.div`
 `;
 
 interface TextProps {
-    isCurrent?: boolean;
+  isCurrent?: boolean;
 }
 
 export const Text = styled.h2<TextProps>`
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
-  text-decoration: ${props => props.isCurrent ? 'underline' : 'none'};
+  text-decoration: ${(props) => (props.isCurrent ? 'underline' : 'none')};
 `;
 
 interface ArrowProps {
-    makeInvisible?: boolean;
+  invisible?: boolean;
 }
 
 const Arrow = styled.div<ArrowProps>`
@@ -39,7 +39,7 @@ const Arrow = styled.div<ArrowProps>`
   height: 0.8em;
   border-right: 0.12em solid rgba(0, 0, 0, 0.87);
   border-top: 0.12em solid rgba(0, 0, 0, 0.87);
-  visibility: ${props => props.makeInvisible ? 'hidden' : 'visible'};
+  visibility: ${(props) => (props.invisible ? 'hidden' : 'visible')};
 `;
 
 export const LeftArrow = styled(Arrow)`

@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
-import { AuthContext } from '../../context/auth-context';
-import { getAuthToken, validateEmail, validatePassword } from '../../utils';
-import loadingSpinner from '../../loading.gif';
-import '../../app.css';
+import { AuthContext } from 'context/auth-context';
+import { getAuthToken, validateEmail, validatePassword } from 'utils';
+import loadingSpinner from 'loading.gif';
+import 'app.css';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +12,6 @@ const LoginScreen: React.FC = () => {
   const history = useHistory();
 
   const { loading, authenticate } = useContext(AuthContext);
-
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

@@ -1,38 +1,24 @@
-import React from 'react';
-import { Wrapper } from './styles';
-import { useQuery, gql } from '@apollo/client';
-import { getAuthToken } from '../../utils';
-import { Redirect, Route } from 'react-router-dom';
-import loadingSpinner from '../../loading.gif';
-import ListMap from './list-map';
+import { ListCard } from './styles';
 
-const USER_LIST = gql`
-  query {
-    users(pageInfo: { limit: 250 }) {
-      count
-      nodes {
-        id
-        name
-        email
-      }
-    }
-  }
-`;
+interface node {
+  id: string;
+  name: string;
+  email: string;
+}
 
-const UserList: React.FC = () => {
-  const { loading, error, data } = useQuery(USER_LIST);
+interface ListProps {
+  list: node[];
+}
 
-  if (error) {
-    alert(error.message);
-  }
+const UserList = ({ list }: ListProps): JSX.Element => {
+  const listItems = list.map((user) => (
+    <ListCard key={user.id}>
+      <h4>{user.name}</h4>
+      <h4>{user.email}</h4>
+    </ListCard>
+  ));
 
-  return (
-    <Wrapper>
-      <Route path='/user-list'>{!getAuthToken() && <Redirect to='/login' />}</Route>
-      <h1>Lista de usuários</h1>
-      {loading ? <img src={loadingSpinner} height='20px' /> : !error && <ListMap list={data.users.nodes} />}
-    </Wrapper>
-  );
+  return <dl>{listItems}</dl>;
 };
 
 export default UserList;

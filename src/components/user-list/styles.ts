@@ -20,3 +20,20 @@ export const UserListWrapper = styled.div`
   width: 100%;
   justify-content: space-between;
 `
+
+export const RoundButton = styled.button`
+  background-color: #04aa6d;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  margin: 4px 2px;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+`;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserListWrapper } from './styles';
+import { RoundButton, UserListWrapper } from './styles';
 import { useQuery, gql } from '@apollo/client';
 import { getAuthToken } from 'utils';
 import { Redirect, Route } from 'react-router-dom';
@@ -71,6 +71,7 @@ const UserListScreen: React.FC = () => {
             currentPage={currentPage}
             lastPage={lastPage}
           />
+          <RoundButton>+</RoundButton>
         </UserListWrapper>
       )}
     </div>

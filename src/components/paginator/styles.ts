@@ -5,14 +5,27 @@ export const Wrapper = styled.div`
   padding-bottom: 12px;
   flex-direction: row;
   justify-content: space-between;
-  line-height: 12px;
-  width: 80px;
+  width: 160px;
   margin: auto;
+  line-height: 12px;
 `;
 
-export const Text = styled.text`
-  font-size: xx-large;
-`
+export const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+interface TextProps {
+    isCurrent?: boolean;
+}
+
+export const Text = styled.h2<TextProps>`
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  text-decoration: ${props => props.isCurrent ? 'underline' : 'none'};
+`;
 
 interface ArrowProps {
     makeInvisible?: boolean;

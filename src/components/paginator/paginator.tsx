@@ -1,14 +1,23 @@
 import React from 'react';
-import { LeftArrow, RightArrow } from './styles';
+import { LeftArrow, RightArrow, Wrapper, Text } from './styles';
 
 interface PaginatorProps {
-    onRightClick: () => void
-    onLeftClick: () => void
-    currentPage: number
+  onRightClick: () => void;
+  onLeftClick: () => void;
+  currentPage: number;
+  isLastPage: boolean;
 }
 
-const Paginator = ({ onRightClick, onLeftClick, currentPage }: PaginatorProps): JSX.Element => {
-    return <div><LeftArrow onClick={onLeftClick} />{currentPage}<RightArrow onClick={onRightClick}/></div>;
+const Paginator = ({ onRightClick, onLeftClick, currentPage, isLastPage }: PaginatorProps): JSX.Element => {
+  const isFirstPage = currentPage === 1;
+
+  return (
+    <Wrapper>
+      <LeftArrow onClick={onLeftClick} makeInvisible={isFirstPage} />
+      <Text>{currentPage}</Text>
+      <RightArrow onClick={onRightClick} makeInvisible={isLastPage} />
+    </Wrapper>
+  );
 };
 
 export default Paginator;

@@ -13,5 +13,10 @@ export const ListCard = styled.li`
 
 export const UserListWrapper = styled.div`
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   justify-content: space-between;
 `

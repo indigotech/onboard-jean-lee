@@ -8,11 +8,12 @@ interface node {
 
 interface ListProps {
   list: node[];
+  onClick: (id: string) => void;
 }
 
-const UserList = ({ list }: ListProps): JSX.Element => {
+const UserList: React.FC<ListProps> = ({ list, onClick }) => {
   const listItems = list.map((user) => (
-    <ListCard key={user.id}>
+    <ListCard key={user.id} onClick={() => onClick(user.id)}>
       <h4>{user.name}</h4>
       <h4>{user.email}</h4>
     </ListCard>

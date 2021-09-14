@@ -58,6 +58,11 @@ const UserListScreen: React.FC = () => {
     }
   };
 
+  const onUserClick = (id: string) => {
+    console.log(id);
+    history.push(`/user-details/${id}`);
+  }
+
   return (
     <div>
       <Route path='/user-list'>{!getAuthToken() && <Redirect to='/login' />}</Route>
@@ -66,7 +71,7 @@ const UserListScreen: React.FC = () => {
         <img src={loadingSpinner} height='20px' width='20px' />
       ) : data && (
         <UserListWrapper>
-          <UserList list={data.users.nodes} />
+          <UserList list={data.users.nodes} onClick={onUserClick} />
           <Paginator
             onLeftClick={onLeftClick}
             onRightClick={onRightClick}

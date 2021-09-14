@@ -22,18 +22,19 @@ export const UserListWrapper = styled.div`
 `
 
 export const RoundButton = styled.button`
-  background-color: #04aa6d;
+  background-color: blueviolet;
   border: none;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 24px;
-  margin: 4px 2px;
+  margin-bottom: 12px;
+  margin-right: 8px;
   border-radius: 50%;
   height: 60px;
   width: 60px;
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
 `;

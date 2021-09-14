@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RoundButton, UserListWrapper } from './styles';
 import { useQuery, gql } from '@apollo/client';
 import { getAuthToken } from 'utils';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useHistory } from 'react-router-dom';
 import loadingSpinner from 'loading.gif';
 import UserList from './user-list';
 import Paginator from 'components/paginator/paginator';
@@ -29,6 +29,8 @@ const UserListScreen: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [offset, setOffset] = useState(0);
+
+  const history = useHistory();
 
   const { loading, error, data } = useQuery(USER_LIST, {
     variables: { limit, offset },
@@ -71,7 +73,7 @@ const UserListScreen: React.FC = () => {
             currentPage={currentPage}
             lastPage={lastPage}
           />
-          <RoundButton>+</RoundButton>
+          <RoundButton  onClick={() => history.push('/add-user')}>+</RoundButton>
         </UserListWrapper>
       )}
     </div>

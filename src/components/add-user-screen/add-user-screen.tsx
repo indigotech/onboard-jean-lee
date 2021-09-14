@@ -13,13 +13,11 @@ const AddUserScreen: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const validName = validateNotEmpty(name);
     const validPhone = validatePhone(phone);
     const validEmail = validateEmail(email);
-    const validRole = validateNotEmpty(role);
     const validBirthdate = validateBirthdate(birthdate);
 
-    if (validName && validPhone && validEmail && validRole && validBirthdate) {
+    if (validPhone && validEmail && validBirthdate) {
       alert('Submetido');
     }
   };
@@ -31,27 +29,27 @@ const AddUserScreen: React.FC = () => {
       <form onSubmit={(event) => handleSubmit(event)}>
         <label>
           Nome
-          <input type='text' name='name' onChange={(event) => setName(event.target.value)} />
+          <input type='text' name='name' onChange={(event) => setName(event.target.value)} required/>
         </label>
         <br />
         <label>
           Telefone
-          <input type='text' name='phone' onChange={(event) => setPhone(event.target.value)} />
+          <input type='text' name='phone' onChange={(event) => setPhone(event.target.value)} required/>
         </label>
         <br />
         <label>
           Data de nascimento
-          <input type='date' name='birthdate' onChange={(event) => setBirthdate(event.target.value)} />
+          <input type='date' name='birthdate' onChange={(event) => setBirthdate(event.target.value)} required/>
         </label>
         <br />
         <label>
           E-mail
-          <input type='text' name='email' onChange={(event) => setEmail(event.target.value)} />
+          <input type='text' name='email' onChange={(event) => setEmail(event.target.value)} required/>
         </label>
         <br />
         <label>
           Role
-          <input type='text' name='role' onChange={(event) => setRole(event.target.value)} />
+          <input type='text' name='role' onChange={(event) => setRole(event.target.value)} required/>
         </label>
         <br />
         <button type='submit' name='submit' >

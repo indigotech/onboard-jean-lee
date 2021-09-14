@@ -31,12 +31,12 @@ const LoginScreen: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <label>
           E-mail
-          <input type='text' name='email' onChange={(event) => setEmail(event.target.value)} />
+          <input type='text' name='email' onChange={(event) => setEmail(event.target.value)} required/>
         </label>
         <br />
         <label>
           Senha
-          <input type='password' name='password' onChange={(event) => setPassword(event.target.value)} />
+          <input type='password' name='password' onChange={(event) => setPassword(event.target.value)} required/>
         </label>
         <br />
         <button type='submit' name='submit' disabled={loading}>

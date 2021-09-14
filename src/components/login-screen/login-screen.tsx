@@ -19,14 +19,14 @@ const LoginScreen: React.FC = () => {
     const validPassword = validatePassword(password);
     if (validEmail && validPassword) {
       authenticate(email, password)
-        .then(() => history.push('/home'))
+        .then(() => history.push('/user-list'))
         .catch((err) => alert(err.message));
     }
   };
 
   return (
     <div>
-      <Route path='/login'>{getAuthToken() && <Redirect to='/home' />}</Route>
+      <Route path='/login'>{getAuthToken() && <Redirect to='/user-list' />}</Route>
       <h1>Bem vindo(a) à Taqtile!</h1>
       <form onSubmit={handleSubmit}>
         <label>

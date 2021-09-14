@@ -25,13 +25,6 @@ export const validatePassword = (password: string): boolean => {
   return validPassword;
 };
 
-export const validateNotEmpty = (input: string): boolean => {
-  if (input) {
-    return true;
-  }
-  return false;
-}
-
 export const validatePhone = (phone: string): boolean => {
   const regex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
   const isValid = regex.test(phone);

@@ -11,10 +11,10 @@ const LOGIN = gql`
   }
 `;
 
-type AuthenticatorTypes = {
+interface AuthenticatorTypes {
   loading: boolean;
   authenticate: (email: string, password: string) => Promise<void>;
-};
+}
 
 export const useAuthenticator = (): AuthenticatorTypes => {
   const [login, { loading }] = useMutation(LOGIN);
@@ -25,11 +25,10 @@ export const useAuthenticator = (): AuthenticatorTypes => {
         email: email,
         password: password,
       },
-    })
-      .then((response) => {
-        const token = response.data.login.token.split(' ')[1];
-        localStorage.setItem('auth-token', token);
-      })
+    }).then((response) => {
+      const token = response.data.login.token.split(' ')[1];
+      localStorage.setItem('auth-token', token);
+    });
   };
 
   return { loading, authenticate };

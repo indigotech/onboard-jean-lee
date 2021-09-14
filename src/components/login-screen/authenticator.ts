@@ -20,7 +20,7 @@ export const useAuthenticator = (): AuthenticatorTypes => {
   const [login, { loading }] = useMutation(LOGIN);
 
   const authenticate = async (email: string, password: string) => {
-    login({
+    await login({
       variables: {
         email: email,
         password: password,

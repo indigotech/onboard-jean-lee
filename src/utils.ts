@@ -1,5 +1,3 @@
-
-
 export const validateEmail = (email: string): boolean => {
   const emailRegex = /^\S+@\S+\.\S+$/;
   if (!emailRegex.test(email)) {
@@ -26,6 +24,25 @@ export const validatePassword = (password: string): boolean => {
   }
   return validPassword;
 };
+
+export const validatePhone = (phone: string): boolean => {
+  const regex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+  const isValid = regex.test(phone);
+  if (!isValid) {
+    alert('Insira um telefone válido, sem espaços ou parênteses.');
+  }
+  return isValid;
+}
+
+export const validateBirthdate = (birthdate: string): boolean => {
+  const today = new Date;
+  const inputDate = new Date(birthdate);
+  if (inputDate > today) {
+    alert('Selecione uma data de nascimento válida.');
+    return false;
+  }
+  return true;
+}
 
 export const getAuthToken = (): string | null =>{ 
     return localStorage.getItem('auth-token')

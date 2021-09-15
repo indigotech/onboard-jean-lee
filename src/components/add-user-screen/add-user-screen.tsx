@@ -4,6 +4,8 @@ import { getAuthToken, validateBirthDate, validateEmail, validatePhone } from 'u
 import loadingSpinner from 'loading.gif';
 import { AddUserWrapper } from './styles';
 import useAddUser from './user-adder';
+import { H1 } from 'shared/text-styles/text-styles';
+import FormButton from 'shared/form-button/form-button';
 
 const AddUserScreen: React.FC = () => {
   const [name, setName] = useState('');
@@ -31,7 +33,7 @@ const AddUserScreen: React.FC = () => {
   return (
     <AddUserWrapper>
       <Route path='/add-user'>{!getAuthToken() && <Redirect to='/login' />}</Route>
-      <h1>Novo usuário</h1>
+      <H1>Novo usuário</H1>
       <form onSubmit={(event) => handleSubmit(event)}>
         <label>
           Nome
@@ -61,10 +63,9 @@ const AddUserScreen: React.FC = () => {
           </select>
         </label>
         <br />
-        <button type='submit' name='submit' disabled={loading}>
-          {loading && <img src={loadingSpinner} height='20px' />}
-          Entrar
-        </button>
+        <FormButton loading={loading}>
+          Cadastrar
+        </FormButton>
       </form>
     </AddUserWrapper>
   );

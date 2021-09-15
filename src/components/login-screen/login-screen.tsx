@@ -4,6 +4,8 @@ import { useAuthenticator } from './authenticator';
 import { getAuthToken, validateEmail, validatePassword } from 'utils';
 import loadingSpinner from 'loading.gif';
 import 'app.css';
+import { H1 } from 'shared/text-styles/text-styles';
+import FormButton from 'shared/form-button/form-button';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -27,7 +29,7 @@ const LoginScreen: React.FC = () => {
   return (
     <div>
       <Route path='/login'>{getAuthToken() && <Redirect to='/user-list' />}</Route>
-      <h1>Bem vindo(a) à Taqtile!</h1>
+      <H1>Bem vindo(a) à Taqtile!</H1>
       <form onSubmit={handleSubmit}>
         <label>
           E-mail
@@ -39,10 +41,9 @@ const LoginScreen: React.FC = () => {
           <input type='password' name='password' onChange={(event) => setPassword(event.target.value)} required/>
         </label>
         <br />
-        <button type='submit' name='submit' disabled={loading}>
-          {loading && <img src={loadingSpinner} height='20px' />}
+        <FormButton loading={loading}>
           Entrar
-        </button>
+        </FormButton>
       </form>
     </div>
   );

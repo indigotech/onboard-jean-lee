@@ -34,9 +34,9 @@ export const validatePhone = (phone: string): boolean => {
   return isValid;
 }
 
-export const validateBirthdate = (birthdate: string): boolean => {
+export const validateBirthDate = (birthDate: string): boolean => {
   const today = new Date;
-  const inputDate = new Date(birthdate);
+  const inputDate = new Date(birthDate);
   if (inputDate > today) {
     alert('Selecione uma data de nascimento válida.');
     return false;

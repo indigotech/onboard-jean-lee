@@ -32,7 +32,6 @@ const UserDetails: React.FC = () => {
   const { loading, error } = useQuery(USER, {
     variables: { id },
     onCompleted(data) {
-      console.log(data);
       const { name, phone, birthDate, email, role } = data.user;
       setName(name);
       setPhone(phone);

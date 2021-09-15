@@ -1,7 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { Route, Redirect, useHistory } from 'react-router';
 import { getAuthToken, validateBirthDate, validateEmail, validatePhone } from 'utils';
-import loadingSpinner from 'loading.gif';
 import { AddUserWrapper } from './styles';
 import useAddUser from './user-adder';
 import { H1 } from 'shared/text-styles/text-styles';

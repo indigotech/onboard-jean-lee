@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
 import { useAuthenticator } from './authenticator';
 import { getAuthToken, validateEmail, validatePassword } from 'utils';
-import loadingSpinner from 'loading.gif';
 import 'app.css';
 import { H1 } from 'shared/text-styles/text-styles';
 import FormButton from 'shared/form-button/form-button';

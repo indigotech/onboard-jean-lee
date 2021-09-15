@@ -1,4 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
+import { useCallback } from 'react';
 
 const ADD_USER = gql`
   mutation ($data: UserInputType!) {
@@ -25,13 +26,16 @@ interface UserAdderTypes {
 const useAddUser = (): UserAdderTypes => {
   const [mutate, { loading }] = useMutation(ADD_USER);
 
-  const addUser = async (data: UserInput) => {
-    await mutate({
-      variables: {
-        data
-      },
-    });
-  };
+  const addUser = useCallback(
+    async (data: UserInput) => {
+      await mutate({
+        variables: {
+          data,
+        },
+      });
+    },
+    [mutate],
+  );
 
   return { addUser, loading };
 };

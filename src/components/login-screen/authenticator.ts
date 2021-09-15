@@ -1,4 +1,5 @@
 import { useMutation, gql } from '@apollo/client';
+import { useCallback } from 'react';
 
 const LOGIN = gql`
   mutation ($email: String!, $password: String!) {
@@ -19,7 +20,7 @@ interface AuthenticatorTypes {
 export const useAuthenticator = (): AuthenticatorTypes => {
   const [login, { loading }] = useMutation(LOGIN);
 
-  const authenticate = async (email: string, password: string) => {
+  const authenticate = useCallback(async (email: string, password: string) => {
     await login({
       variables: {
         email: email,
@@ -29,7 +30,7 @@ export const useAuthenticator = (): AuthenticatorTypes => {
       const token = response.data.login.token.split(' ')[1];
       localStorage.setItem('auth-token', token);
     });
-  };
+  }, [login]);
 
   return { loading, authenticate };
 };

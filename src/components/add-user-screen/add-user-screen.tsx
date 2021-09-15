@@ -18,7 +18,6 @@ const AddUserScreen: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(role);
     const validPhone = validatePhone(phone);
     const validEmail = validateEmail(email);
     const validBirthdate = validateBirthDate(birthDate);

@@ -23,7 +23,7 @@ const AddUserScreen: React.FC = () => {
     const validEmail = validateEmail(email);
     const validBirthdate = validateBirthDate(birthDate);
     if (validPhone && validEmail && validBirthdate) {
-      addUser(name, phone, birthDate, email, role)
+      addUser({ name: name, phone: phone, birthDate: birthDate, email: email, role: role })
         .then(() => history.push('/user-list'))
         .catch((error) => alert(error.message));
     }

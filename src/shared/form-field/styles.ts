@@ -10,6 +10,7 @@ export const FormFieldWrapper = styled.div`
   flex-direction: column;
   justify-content: left;
 `;
+
 export const FormInput = styled.input<FormElementProps>`
   width: 300px;
   height: 48px;

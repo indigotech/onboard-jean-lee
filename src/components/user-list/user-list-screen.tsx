@@ -59,7 +59,6 @@ const UserListScreen: React.FC = () => {
   };
 
   const onUserClick = (id: string) => {
-    console.log(id);
     history.push(`/user-details/${id}`);
   }
 

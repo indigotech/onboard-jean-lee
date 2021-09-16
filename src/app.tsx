@@ -1,4 +1,5 @@
 import AddUserScreen from 'components/add-user-screen/add-user-screen';
+import UserDetails from 'components/user-details/user-details';
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import './app.css';
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path='/login' component={LoginScreen} />
         <Route path='/user-list'  component={UserListScreen} />
         <Route path='/add-user' component={AddUserScreen} />
+        <Route path='/user-details/:id' component={UserDetails} />
         <Route
           path='/'
           render={() => {

@@ -5,14 +5,17 @@ import { getAuthToken, validateEmail, validatePassword } from 'utils';
 import 'app.css';
 import { H1 } from 'shared/text-styles/text-styles';
 import FormButton from 'shared/form-button/form-button';
-import FormField from 'shared/form-item/form-field';
+import FormField from 'shared/form-field/form-field';
 import { LoginScreenWrapper } from './styles';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [errorMessages, setErrorMessages] = useState({
+    email: '',
+    password: '',
+  })
+
   const history = useHistory();
 
   const { loading, authenticate } = useAuthenticator();
@@ -21,10 +24,14 @@ const LoginScreen: React.FC = () => {
     event.preventDefault();
 
     const emailHasError = validateEmail(email);
-    setEmailError(emailHasError);
 
     const passwordHasError = validatePassword(password);
-    setPasswordError(passwordHasError);
+
+    setErrorMessages({
+      ...errorMessages,
+      email: emailHasError,
+      password: passwordHasError,
+    })
 
     if (!emailHasError && !passwordHasError) {
       authenticate(email, password)
@@ -42,13 +49,13 @@ const LoginScreen: React.FC = () => {
           type='text'
           name='e-mail' 
           onChange={(input) => setEmail(input)}
-          errorMessage={emailError} 
+          errorMessage={errorMessages.email} 
         />
         <FormField
           type='password'
           name='password'
           onChange={(input) => setPassword(input)}
-          errorMessage={passwordError}
+          errorMessage={errorMessages.password}
         />
         <FormButton loading={loading}>Entrar</FormButton>
       </form>

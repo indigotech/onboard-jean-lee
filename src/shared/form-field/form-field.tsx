@@ -8,7 +8,7 @@ interface FormFieldProps {
   errorMessage?: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ name, type, errorMessage, onChange }) => {
+const FormField: React.FC<FormFieldProps> = ({ name, type, onChange, errorMessage }) => {
   return (
     <FormFieldWrapper>
       <FormLabel>{name}</FormLabel>

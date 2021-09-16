@@ -6,4 +6,5 @@ export const H1 = styled.h1`
   color: black;
   margin-top: 20px;
   margin-bottom: 20px;
+  text-align: left;
 `;

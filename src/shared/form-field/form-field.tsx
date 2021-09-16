@@ -11,7 +11,7 @@ interface FormFieldProps {
 const FormField: React.FC<FormFieldProps> = ({ name, type, onChange, errorMessage }) => {
   return (
     <FormFieldWrapper>
-      <FormLabel>{name}</FormLabel>
+      <FormLabel error={errorMessage}>{name}</FormLabel>
       <FormInput id={name} type={type} onChange={(event) => onChange(event.target.value)} error={errorMessage} />
       <FormCaption error={errorMessage}>{errorMessage ? errorMessage : 'placeholder'}</FormCaption>
     </FormFieldWrapper>

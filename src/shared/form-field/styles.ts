@@ -28,10 +28,10 @@ export const FormInput = styled.input<FormElementProps>`
   }
 `;
 
-export const FormLabel = styled.label`
+export const FormLabel = styled.label<FormElementProps>`
   font-size: 12px;
   font-weight: normal;
-  color: #777777;
+  color: ${props => props.error ? 'red' : '#777777'};
   margin-bottom: 12px;
   text-align: left;
   text-transform: lowercase;

@@ -5,20 +5,28 @@ import { getAuthToken, validateEmail, validatePassword } from 'utils';
 import 'app.css';
 import { H1 } from 'shared/text-styles/text-styles';
 import FormButton from 'shared/form-button/form-button';
+import FormField from 'shared/form-item/form-field';
+import { LoginScreenWrapper } from './styles';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
-
+  const [passwordError, setPasswordError] = useState('');
   const history = useHistory();
 
   const { loading, authenticate } = useAuthenticator();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const validEmail = validateEmail(email);
-    const validPassword = validatePassword(password);
-    if (validEmail && validPassword) {
+
+    const emailHasError = validateEmail(email);
+    setEmailError(emailHasError);
+
+    const passwordHasError = validatePassword(password);
+    setPasswordError(passwordHasError);
+
+    if (!emailHasError && !passwordHasError) {
       authenticate(email, password)
         .then(() => history.push('/user-list'))
         .catch((err) => alert(err.message));
@@ -26,25 +34,25 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <div>
+    <LoginScreenWrapper>
       <Route path='/login'>{getAuthToken() && <Redirect to='/user-list' />}</Route>
       <H1>Bem vindo(a) à Taqtile!</H1>
       <form onSubmit={handleSubmit}>
-        <label>
-          E-mail
-          <input type='text' name='email' onChange={(event) => setEmail(event.target.value)} required/>
-        </label>
-        <br />
-        <label>
-          Senha
-          <input type='password' name='password' onChange={(event) => setPassword(event.target.value)} required/>
-        </label>
-        <br />
-        <FormButton loading={loading}>
-          Entrar
-        </FormButton>
+        <FormField 
+          type='text'
+          name='e-mail' 
+          onChange={(input) => setEmail(input)}
+          errorMessage={emailError} 
+        />
+        <FormField
+          type='password'
+          name='password'
+          onChange={(input) => setPassword(input)}
+          errorMessage={passwordError}
+        />
+        <FormButton loading={loading}>Entrar</FormButton>
       </form>
-    </div>
+    </LoginScreenWrapper>
   );
 };
 

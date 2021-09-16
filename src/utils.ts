@@ -1,28 +1,23 @@
-export const validateEmail = (email: string): boolean => {
+export const validateEmail = (email: string): string => {
   const emailRegex = /^\S+@\S+\.\S+$/;
   if (!emailRegex.test(email)) {
-    alert('O e-mail está com formato inválido. Por favor, corrija.');
-    return false;
+    return 'Insira um e-mail válido.';
   } else {
-    return true;
+    return '';
   }
 };
 
-export const validatePassword = (password: string): boolean => {
-  let validPassword = true;
+export const validatePassword = (password: string): string => {
   if (password.length < 7) {
-    alert('Senha deve ter no mínimo 7 caracteres.');
-    validPassword = false;
+    return 'Senha deve ter no mínimo 7 caracteres.';
   }
   if (!/[a-z]|[A-Z]/.test(password)) {
-    alert('Senha deve conter pelo menos 1 letra.');
-    validPassword = false;
+    return 'Senha deve conter pelo menos 1 letra.';
   }
   if (!/[0-9]/.test(password)) {
-    alert('Senha deve conter pelo menos 1 número.');
-    validPassword = false;
+    return 'Senha deve conter pelo menos 1 número.';
   }
-  return validPassword;
+  return '';
 };
 
 export const validatePhone = (phone: string): boolean => {

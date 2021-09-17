@@ -1,47 +1,56 @@
-export const validateEmail = (email: string): boolean => {
+export const validateEmail = (email: string): string => {
   const emailRegex = /^\S+@\S+\.\S+$/;
   if (!emailRegex.test(email)) {
-    alert('O e-mail está com formato inválido. Por favor, corrija.');
-    return false;
+    return 'Insira um e-mail válido.';
   } else {
-    return true;
+    return '';
   }
 };
 
-export const validatePassword = (password: string): boolean => {
-  let validPassword = true;
+export const validatePassword = (password: string): string => {
   if (password.length < 7) {
-    alert('Senha deve ter no mínimo 7 caracteres.');
-    validPassword = false;
+    return 'Senha deve ter no mínimo 7 caracteres.';
   }
   if (!/[a-z]|[A-Z]/.test(password)) {
-    alert('Senha deve conter pelo menos 1 letra.');
-    validPassword = false;
+    return 'Senha deve conter pelo menos 1 letra.';
   }
   if (!/[0-9]/.test(password)) {
-    alert('Senha deve conter pelo menos 1 número.');
-    validPassword = false;
+    return 'Senha deve conter pelo menos 1 número.';
   }
-  return validPassword;
+  return '';
 };
 
-export const validatePhone = (phone: string): boolean => {
+export const validateName = (name: string): string => {
+  if (name) {
+    return '';
+  } else {
+    return 'Insira um nome.'
+  }
+}
+
+export const validatePhone = (phone: string): string => {
   const regex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
   const isValid = regex.test(phone);
   if (!isValid) {
-    alert('Insira um telefone válido, sem espaços ou parênteses.');
+    return 'Insira um número válido.';
   }
-  return isValid;
+  return '';
 }
 
-export const validateBirthDate = (birthDate: string): boolean => {
+export const validateBirthDate = (birthDate: string): string => {
   const today = new Date;
   const inputDate = new Date(birthDate);
-  if (inputDate > today) {
-    alert('Selecione uma data de nascimento válida.');
-    return false;
+  if (inputDate > today  || !birthDate ) {
+    return 'Selecione uma data de nascimento válida.';
   }
-  return true;
+  return '';
+}
+
+export const validateRole = (role: string): string => {
+  if (role !== 'user' && role !== 'admin') {
+    return 'Role deve ser user ou admin.';
+  }
+  return '';
 }
 
 export const getAuthToken = (): string | null =>{ 

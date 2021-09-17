@@ -1,16 +1,25 @@
 import React, { FormEvent, useState } from 'react';
 import { Route, Redirect, useHistory } from 'react-router';
-import { getAuthToken, validateBirthDate, validateEmail, validatePhone } from 'utils';
-import loadingSpinner from 'loading.gif';
+import { getAuthToken, validateBirthDate, validateEmail, validateName, validatePhone, validateRole } from 'utils';
 import { AddUserWrapper } from './styles';
 import useAddUser from './user-adder';
+import { H1 } from 'shared/text-styles/text-styles';
+import FormField from 'shared/form-field/form-field';
+import FormButton from 'shared/form-button/form-button';
 
 const AddUserScreen: React.FC = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState('');
+  const [errorMessages, setErrorMessages] = useState({
+    name: '',
+    phone: '',
+    birthDate: '',
+    email: '',
+    role: '',
+  });
 
   const history = useHistory();
 
@@ -18,10 +27,27 @@ const AddUserScreen: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const validPhone = validatePhone(phone);
-    const validEmail = validateEmail(email);
-    const validBirthdate = validateBirthDate(birthDate);
-    if (validPhone && validEmail && validBirthdate) {
+
+    const nameHasError = validateName(name);
+
+    const phoneHasError = validatePhone(phone);
+
+    const emailHasError = validateEmail(email);
+
+    const birthDateHasError = validateBirthDate(birthDate);
+
+    const roleHasError = validateRole(role);
+
+    setErrorMessages({
+      ...errorMessages,
+      name: nameHasError,
+      phone: phoneHasError,
+      birthDate: birthDateHasError,
+      email: emailHasError,
+      role: roleHasError,
+    });
+
+    if (!nameHasError && !phoneHasError && !emailHasError && !birthDateHasError && !roleHasError) {
       addUser({ name: name, phone: phone, birthDate: birthDate, email: email, role: role })
         .then(() => history.push('/user-list'))
         .catch((error) => alert(error.message));
@@ -31,43 +57,20 @@ const AddUserScreen: React.FC = () => {
   return (
     <AddUserWrapper>
       <Route path='/add-user'>{!getAuthToken() && <Redirect to='/login' />}</Route>
-      <h1>Novo usuário</h1>
+      <H1>Novo usuário</H1>
       <form onSubmit={(event) => handleSubmit(event)}>
-        <label>
-          Nome
-          <input type='text' name='name' onChange={(event) => setName(event.target.value)} required />
-        </label>
-        <br />
-        <label>
-          Telefone
-          <input type='text' name='phone' onChange={(event) => setPhone(event.target.value)} required />
-        </label>
-        <br />
-        <label>
-          Data de nascimento
-          <input type='date' name='birthdate' onChange={(event) => setBirthDate(event.target.value)} required />
-        </label>
-        <br />
-        <label>
-          E-mail
-          <input type='text' name='email' onChange={(event) => setEmail(event.target.value)} required />
-        </label>
-        <br />
-        <label>
-          Role
-          <select name='role' onChange={(event) => setRole(event.target.value)}>
-            <option value='user'>User</option>
-            <option value='admin'>Admin</option>
-          </select>
-        </label>
-        <br />
-        <button type='submit' name='submit' disabled={loading}>
-          {loading && <img src={loadingSpinner} height='20px' />}
-          Entrar
-        </button>
+        <FormField type='text' name='name' onChange={(input) => setName(input)} errorMessage={errorMessages.name} />
+        <FormField type='tel' name='phone' onChange={(input) => setPhone(input)} errorMessage={errorMessages.phone} />
+        <FormField type='date' name='data de nascimento' onChange={(input) => setBirthDate(input)} errorMessage={errorMessages.birthDate} />
+        <FormField type='text' name='email' onChange={(input) => setEmail(input)} errorMessage={errorMessages.email} />
+        <FormField type='text' name='role' onChange={(input) => setRole(input)} errorMessage={errorMessages.role} />
+        <FormButton loading={loading}>
+          Cadastrar
+        </FormButton>
       </form>
     </AddUserWrapper>
   );
 };
 
 export default AddUserScreen;
+ 

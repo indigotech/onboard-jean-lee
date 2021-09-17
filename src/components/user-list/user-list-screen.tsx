@@ -40,7 +40,6 @@ const UserListScreen: React.FC = () => {
   });
 
   if (error) {
-    alert('Favor logar novamente.');
     localStorage.removeItem('auth-token');
   }
 
